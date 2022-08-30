@@ -1,18 +1,19 @@
-let getProducts = [];
+let allProducts = [];
 
 const fetchKanap = async () => {
     await fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
     .then((promise) => {
-        getProducts = promise;
+        allProducts = promise;
       })};
 
-fetchKanap();
+// fetchKanap();
 
-const displayProdutcs = async () => {
+const displayProducts = async () => {
   await fetchKanap();
 
-getProducts.forEach(product => {
+  
+  allProducts.forEach(product => {
     document.getElementById('items').innerHTML += ` 
   <a href="./product.html?id=${product._id}">
           <article>
@@ -20,10 +21,9 @@ getProducts.forEach(product => {
             <h3 class="productName">${product.name}</h3>
             <p class="productDescription">${product.description}</p>
           </article>
-        </a> `
-});
-
-}
-
-displayProdutcs();
-
+          </a> `
+        });
+        
+      }
+      
+      displayProducts();
