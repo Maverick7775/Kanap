@@ -15,9 +15,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
     document.getElementById(`title`).textContent =  product.name;
     document.getElementById('price').textContent = product.price;
     document.getElementById('description').textContent = product.description;
-    // document.getElementById('colors').textContent = `${product.colors}`;
     let color = document.getElementById("colors");
-    for (i = 0; i < product.colors.length; i++) {
+    for (i = 0; i < product.colors.length; i++) { 
       color.innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
     }
 })};
