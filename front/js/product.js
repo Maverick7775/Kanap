@@ -23,3 +23,31 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
 fetchKanap();
 
+/** Ajouter des produits dans le panier*/
+ 
+document.getElementById('addToCart').addEventListener('click', () => {
+  console.log(document.getElementById('colors').value);
+  
+  if (document.getElementById('colors').value === '') {
+    alert(`Veuillez choisir une couleur`)
+  }
+})
+
+function saveBasket(basket){
+  localStorage.setItem("basket", JSON.stringify(basket));
+}
+
+function getBasket() {
+  let basket = localStorage.getItem("basket");
+  if (basket == null){
+    return []
+  }else{
+    return JSON.parse(basket)
+  }
+}
+
+function addToCart(product){
+  let basket = getBasket();
+  basket.push(product);
+  saveBasket(basket);
+}
