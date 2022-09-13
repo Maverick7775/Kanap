@@ -25,12 +25,20 @@ fetchKanap();
 
 /** Ajouter des produits dans le panier*/
  
+let quantity = document.getElementById('quantity')
+console.log(quantity.value);
+
 document.getElementById('addToCart').addEventListener('click', () => {
   console.log(document.getElementById('colors').value);
+  console.log(document.getElementById('quantity').value);
+
   
   if (document.getElementById('colors').value === '') {
-    alert(`Veuillez choisir une couleur`)
+    alert(`Veuillez choisir une couleur`)}
+  if (document.getElementById('quantity').value === 0) {
+    alert(`Veuillez choisir un produit`)
   }
+  
 })
 
 function saveBasket(basket){
@@ -50,4 +58,5 @@ function addToCart(product){
   let basket = getBasket();
   basket.push(product);
   saveBasket(basket);
+  console.log(basket);
 }
