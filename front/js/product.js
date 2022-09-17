@@ -11,52 +11,81 @@ fetch(`http://localhost:3000/api/products/${id}`)
     
     
     let img = document.querySelector(".item__img");
-    img.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
-    document.getElementById(`title`).textContent =  product.name;
-    document.getElementById('price').textContent = product.price;
-    document.getElementById('description').textContent = product.description;
+    let title = document.getElementById(`title`);
+    let price = document.getElementById('price');
+    let description = document.getElementById('description')
     let color = document.getElementById("colors");
-    for (i = 0; i < product.colors.length; i++) { 
-      color.innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
-    }
+
+    img.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
+    title.textContent =  product.name;
+    price.textContent = product.price;
+    description.textContent = product.description;
+    
+    // for (i = 0; i < product.colors.length; i++) { 
+    //   color.innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
+
+    // }
+
+for ( j = 0; j < product.colors.length; j++){
+  color.innerHTML += `<option value="${product.colors[j]}">${product.colors[j]}</option>`;
+}
+
+  console.log(product);
+
 })};
 
 fetchKanap();
 
-/** Ajouter des produits dans le panier*/
- 
-let quantity = document.getElementById('quantity')
-console.log(quantity.value);
 
-document.getElementById('addToCart').addEventListener('click', () => {
-  console.log(document.getElementById('colors').value);
-  console.log(document.getElementById('quantity').value);
 
+
+
+
+/**Sélection du bouton dans le DOM */
+const button = document.getElementById('addToCart');
+
+button.addEventListener('click', () => {
+
+let color = document.getElementById('colors').value;
+let quantity = document.getElementById('quantity').value;
+let price = product.price;
+console.log(price);
+console.log(color);
+console.log(quantity);
+
+if (color === '') {
+  alert(`Veuillez choisir une couleur`)
+return
+}
+  if (quantity === "0") {
+    alert(`Veuillez choisir une quantité`)
+  return
+}
+    
+
+const data = {
+  id: id,
+  color: color,
+  quantity: Number(quantity),
+  price: price
   
-  if (document.getElementById('colors').value === '') {
-    alert(`Veuillez choisir une couleur`)}
-  if (document.getElementById('quantity').value === 0) {
-    alert(`Veuillez choisir un produit`)
-  }
+}
+console.log(data);
+let productInLocalStorage = JSON.parse(localStorage.getItem("data"))
+console.log(productInLocalStorage);
+
+if(productInLocalStorage){
+  productInLocalStorage.push(data)
+  localStorage.setItem("data", JSON.stringify(productInLocalStorage))
+  console.log(productInLocalStorage);
+
+}
+else{
+  productInLocalStorage = [];
+  productInLocalStorage.push(data)
   
+  localStorage.setItem("data", JSON.stringify(productInLocalStorage))
+  console.log(productInLocalStorage);
+}
+
 })
-
-function saveBasket(basket){
-  localStorage.setItem("basket", JSON.stringify(basket));
-}
-
-function getBasket() {
-  let basket = localStorage.getItem("basket");
-  if (basket == null){
-    return []
-  }else{
-    return JSON.parse(basket)
-  }
-}
-
-function addToCart(product){
-  let basket = getBasket();
-  basket.push(product);
-  saveBasket(basket);
-  console.log(basket);
-}
