@@ -8,7 +8,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 .then(res => res.json())
 .then((promise) => {
     product = promise
-    
+    console.log("hello" + product);
     
     let img = document.querySelector(".item__img");
     let title = document.getElementById(`title`);
@@ -74,11 +74,21 @@ console.log(data);
 let productInLocalStorage = JSON.parse(localStorage.getItem("data"))
 console.log(productInLocalStorage);
 
+/**Pop-up confirmation */
+const popupConfirmation = () => {
+  if(window.confirm(`${id} option: ${color} a bien été rajouté au panier
+  Consulter le panier OK ou revenir à l'accueil ANNULER`)){
+window.location.href = "cart.html"
+  }else{
+    window.location.href = "index.html"
+  }
+}
+
 if(productInLocalStorage){
   productInLocalStorage.push(data)
   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
   console.log(productInLocalStorage);
-
+popupConfirmation();
 }
 else{
   productInLocalStorage = [];
@@ -86,6 +96,7 @@ else{
   
   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
   console.log(productInLocalStorage);
+  popupConfirmation();
 }
 
 })
