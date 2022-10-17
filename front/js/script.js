@@ -29,3 +29,5 @@ const displayProducts = async () => {
       
       displayProducts();
 
+
+      // let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
