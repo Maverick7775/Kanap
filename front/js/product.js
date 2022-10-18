@@ -51,7 +51,7 @@ var color = color_Elt.value;
 
 button.addEventListener('click', () => {
   
-  var color = color_Elt.value;
+var color = color_Elt.value;
 let quantity = quantity_Elt.value;
 let price = product.price;
 
@@ -59,15 +59,22 @@ let price = product.price;
   console.log(quantity);
   console.log(price);
 
-  if (color === "") {
+  if (color === "" || color == null ) {
     alert(`Veuillez choisir une couleur`)
     return
   }
-  if (quantity === "0") {
+  if (quantity == "0") {
     alert(`Veuillez choisir une quantité`)
     return
   }
-})
+
+
+
+// if(productInLocalStorage == null) 
+// productInLocalStorage = [];
+// productInLocalStorage.push(data);
+
+// console.log(productInLocalStorage);
 
 const data = {
   id: id,
@@ -76,9 +83,33 @@ const data = {
   price: price
   
 }
-console.log(data);
-let productInLocalStorage = localStorage.getItem(data);
-console.log(productInLocalStorage);
+
+localStorage.setItem(id, JSON.stringify(data))
+
+
+
+// let productInLocalStorage = JSON.parse(localStorage.getItem('produit'));
+// console.log(productInLocalStorage);
+// productInLocalStorage = [];
+//   productInLocalStorage.push(data)
+//   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
+//   console.log(productInLocalStorage);
+
+})
+
+// localStorage.setItem(id, JSON.stringify(data))
+
+// let productInLocalStorage = JSON.parse(localStorage.getItem('produit'));
+// console.log(productInLocalStorage);
+
+
+
+
+
+
+
+
+
 
 /**Pop-up confirmation */
 // const popupConfirmation = () => {
