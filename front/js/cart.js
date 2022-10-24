@@ -5,12 +5,14 @@
 //     price: price
     
 //   }
-// console.log("coucou");
+console.log("coucou");
 // let productInLocalStorage = JSON.parse(localStorage.getItem("data"));
 // console.log(productInLocalStorage);
 
-function getCart(){
-    let items = [];
-items = JSON.parse(localStorage.getItem("data"));
-return items
-}
+// function getCart(){
+//     let items = [];
+// items = JSON.parse(localStorage.getItem("data"));
+// return items
+// }
+
+let productInLocalStorage = JSON.parse(localStorage.getItem('data'));

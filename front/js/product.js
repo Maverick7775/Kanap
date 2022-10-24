@@ -2,21 +2,21 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 console.log(id);
 
-const img_Elt = document.querySelector(".item__img");
-const title_Elt = document.getElementById('title');
-const price_Elt = document.getElementById('price');
-const description_Elt = document.getElementById('description')
-const color_Elt = document.getElementById("colors");
-const quantity_Elt = document.getElementById('quantity');
+const imgElt = document.querySelector(".item__img");
+const titleElt = document.getElementById('title');
+const priceElt = document.getElementById('price');
+const descriptionElt = document.getElementById('description')
+const colorElt = document.getElementById("colors");
+const quantityElt = document.getElementById('quantity');
 
 function displayProduct() {
 
-  img_Elt.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
-  title_Elt.textContent = product.name;
-  price_Elt.textContent = product.price;
-  description_Elt.textContent = product.description;
+  imgElt.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
+  titleElt.textContent = product.name;
+  priceElt.textContent = product.price;
+  descriptionElt.textContent = product.description;
   for (j = 0; j < product.colors.length; j++) {
-    color_Elt.innerHTML += `<option value="${product.colors[j]}">${product.colors[j]}</option>`;
+    colorElt.innerHTML += `<option value="${product.colors[j]}">${product.colors[j]}</option>`;
   }
 }
 
@@ -47,92 +47,67 @@ function addToCart() {
 }
 
 
-var color = color_Elt.value;
+var color = colorElt.value;
 
 button.addEventListener('click', () => {
   
-var color = color_Elt.value;
-let quantity = quantity_Elt.value;
-let price = product.price;
+var color = colorElt.value;
+let quantity = Number(quantityElt.value);
 
   console.log(color);
   console.log(quantity);
-  console.log(price);
 
   if (color === "" || color == null ) {
     alert(`Veuillez choisir une couleur`)
     return
   }
-  if (quantity == "0") {
-    alert(`Veuillez choisir une quantité`)
+  if (quantity === 0 || quantity > 100) {
+    alert(`Veuillez choisir une quantité entre 0 et 100.`)
     return
   }
 
+// localStorage.setItem(data.id + "-" + data.color, JSON.stringify(data))
 
 
-// if(productInLocalStorage == null) 
-// productInLocalStorage = [];
-// productInLocalStorage.push(data);
 
-// console.log(productInLocalStorage);
 
 const data = {
   id: id,
   color: color,
-  quantity: Number(quantity),
-  price: price
+  quantity: quantity
   
 }
 
-localStorage.setItem(id, JSON.stringify(data))
+console.log(data);
+
+let productInLocalStorage = JSON.parse(localStorage.getItem('data'));
+console.log(productInLocalStorage);
 
 
+ const popupConfirmation = () => {
+  if(window.confirm(`${id} option: ${color} a bien été rajouté au panier
+  Consulter le panier OK ou revenir à l'accueil ANNULER`)){
+window.location.href = "cart.html"
+  }else{
+    window.location.href = "index.html"
+  }
+}
 
-// let productInLocalStorage = JSON.parse(localStorage.getItem('produit'));
-// console.log(productInLocalStorage);
-// productInLocalStorage = [];
-//   productInLocalStorage.push(data)
-//   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
-//   console.log(productInLocalStorage);
+if(productInLocalStorage){
+  productInLocalStorage.push(data)
+  localStorage.setItem("data", JSON.stringify(productInLocalStorage))
+  console.log(productInLocalStorage);
+popupConfirmation();
+}
+else{
+  productInLocalStorage = [];
+  productInLocalStorage.push(data)
+  
+  localStorage.setItem("data", JSON.stringify(productInLocalStorage))
+  console.log(productInLocalStorage);
+  popupConfirmation();
+}
+
 
 })
-
-// localStorage.setItem(id, JSON.stringify(data))
-
-// let productInLocalStorage = JSON.parse(localStorage.getItem('produit'));
-// console.log(productInLocalStorage);
-
-
-
-
-
-
-
-
-
-
-/**Pop-up confirmation */
-// const popupConfirmation = () => {
-//   if(window.confirm(`${id} option: ${color} a bien été rajouté au panier
-//   Consulter le panier OK ou revenir à l'accueil ANNULER`)){
-// window.location.href = "cart.html"
-//   }else{
-//     window.location.href = "index.html"
-//   }
-// }
-
-// if(productInLocalStorage){
-//   productInLocalStorage.push(data)
-//   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
-//   console.log(productInLocalStorage);
-// popupConfirmation();
-// }
-// else{
-//   productInLocalStorage = [];
-//   productInLocalStorage.push(data)
-  
-//   localStorage.setItem("data", JSON.stringify(productInLocalStorage))
-//   console.log(productInLocalStorage);
-//   popupConfirmation();
-// }
 
